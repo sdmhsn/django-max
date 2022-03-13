@@ -9,6 +9,15 @@ class Author(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
 
+    # def full_name(self):
+    #     return f'{self.first_name} {self.last_name}'
+
+    # def __str__(self):  # second step (general full name utility method)
+    #     return self.full_name()
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'  # first step
+
 
 class Book(models.Model):
     title = models.CharField(max_length=50)
