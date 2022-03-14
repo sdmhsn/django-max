@@ -5,6 +5,11 @@ from django.utils.text import slugify
 
 
 # Create your models here.
+class Country(models.Model):
+    name = models.CharField(max_length=50)
+    code = models.CharField(max_length=2)
+
+
 class Address(models.Model):
     street = models.CharField(max_length=80)
     postal_code = models.CharField(max_length=5)
@@ -41,6 +46,7 @@ class Book(models.Model):
         Author, on_delete=models.CASCADE, null=True, related_name='books')  # to connect Author model to Book model (one to many relation)
     is_bestselling = models.BooleanField(default=False)
     slug = models.SlugField(default='', blank=True, null=False, db_index=True)
+    published_countries = models.ManyToManyField(Country)  # many to many relation. don't set up on_delete
 
     def get_abolute_url(self):
         return reverse('book-detail', args=[self.slug])
