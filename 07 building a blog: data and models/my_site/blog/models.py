@@ -21,5 +21,5 @@ class Post(models.Model):
     date = models.DateField(auto_now=True)
     slug = models.SlugField(unique=True, db_index=True)  # unique=True: I want to use the slug as a unique identifier for getting my posts. db_index=True: to let Django and Sequel trade an index for that field to make querying and filtering based on it a bit more effective.
     content = models.TextField(validators=[MinLengthValidator(10)])
-    author = models.ForeignKey(Author, on_delete=models.SET_NULL, related_name='posts')
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True, related_name='posts')
     tags = models.ManyToManyField(Tag)
