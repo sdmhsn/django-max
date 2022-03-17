@@ -9,6 +9,11 @@
 <body>
     <form method="POST">
         {% csrf_token %}
+        
+        {% if has_error %}<!-- {'has_error': True} -->
+            <p>This form is invalid - please enter a valid username</p>
+        {% endif %}
+
         <label for="name">Your name</label>
         <input type="text" name="username" id="name">
         <button>Send</button>
