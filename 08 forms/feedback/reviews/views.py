@@ -15,8 +15,9 @@ def index(request):
             print(form.cleaned_data)
             return HttpResponseRedirect('/thank-you')
 
-    form = ReviewForm()
-    # print(form)
+    else:
+        form = ReviewForm()
+        # print(form)
 
     return render(request, 'reviews/review.html', {'form': form})
 
