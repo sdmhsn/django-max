@@ -7,16 +7,10 @@
     <title>Your Review</title>
 </head>
 <body>
-    <form method="POST">
+    <form action="/" method="POST">
         {% csrf_token %}
-        
-        {% if has_error %}<!-- {'has_error': True} -->
-            <p>This form is invalid - please enter a valid username</p>
-        {% endif %}
-
-        <label for="name">Your name</label>
-        <input type="text" name="username" id="name">
-        <button>Send</button>
+        {{ form }}
+        <button type="submit">Send</button>
     </form> 
 </body>
 </html>
