@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Review</title>
+    <link rel="stylesheet" href="{% static 'reviews/styles.css' %}">
 </head>
 <body>
     <form action="/" method="POST">
         {% csrf_token %}
-        {{ form }}
+        <div class="form-control {% if form.user_name.errors %}errors{% endif %}">
+            {{ form.user_name.label_tag }} <!-- label element -->
+            {{ form.user_name }} <!-- input element -->
+            {{ form.user_name.errors }} <!-- render the error -->
+        </div>
         <button type="submit">Send</button>
     </form> 
 </body>
