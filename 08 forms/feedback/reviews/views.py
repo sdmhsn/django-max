@@ -8,9 +8,7 @@ from .models import Review
 # Create your views here.
 def index(request):
     if request.method == 'POST':
-        # print(request.POST)
         form = ReviewForm(request.POST)
-        # print(form)
 
         if form.is_valid():
             # print(form.cleaned_data['user_name'])
@@ -24,18 +22,20 @@ def index(request):
             '''
 
             # video tutorial:
-            review = Review(
-                user_name=form.cleaned_data['user_name'],
-                review_text=form.cleaned_data['review_text'],
-                rating=form.cleaned_data['rating']
-            )
-            review.save()
+            # review = Review(
+            #     user_name=form.cleaned_data['user_name'],
+            #     review_text=form.cleaned_data['review_text'],
+            #     rating=form.cleaned_data['rating']
+            # )
+            # review.save()
+
+            # since this is a ModelForm, we can now call save() on it, that will then save that data to the database
+            form.save() 
             
             return HttpResponseRedirect('/thank-you')
 
     else:
         form = ReviewForm()
-        # print(form)
 
     return render(request, 'reviews/review.html', {'form': form})
 
