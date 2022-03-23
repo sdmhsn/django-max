@@ -44,6 +44,17 @@ class ReviewListView(TemplateView):
         return context
 
 
+class SingleReviewView(TemplateView):
+    template_name = 'reviews/single_review.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        review_id = kwargs['pk']
+        selected_review = Review.objects.get(pk=review_id)
+        context['review'] = selected_review
+        return context
+
+
 # def index(request):
 #     if request.method == 'POST':
 #         form = ReviewForm(request.POST)
