@@ -1,29 +1,39 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.views import View
+# from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormView
 
 from .forms import ReviewForm
 from .models import Review
 
 
 # Create your views here.
-class ReviewView(View):
-    def get(self, request):
-        form = ReviewForm()
+class ReviewView(FormView):
+    form_class = ReviewForm  # GET
+    template_name = 'reviews/review.html'  # GET
+    success_url = '/thank-you'
 
-        return render(request, 'reviews/review.html', {'form': form})
+    def form_valid(self, form):  # POST
+        form.save()
+        return super().form_valid(form)
 
-    def post(self, request):
-        form = ReviewForm(request.POST)
+# class ReviewView(View):
+#     def get(self, request):
+#         form = ReviewForm()
 
-        if form.is_valid():
-            form.save() 
+#         return render(request, 'reviews/review.html', {'form': form})
+
+#     def post(self, request):
+#         form = ReviewForm(request.POST)
+
+#         if form.is_valid():
+#             form.save() 
             
-            return HttpResponseRedirect('/thank-you')
+#             return HttpResponseRedirect('/thank-you')
 
-        return render(request, 'reviews/review.html', {'form': form})
+#         return render(request, 'reviews/review.html', {'form': form})
 
 
 class ThankYouView(TemplateView):
@@ -40,10 +50,10 @@ class ReviewListView(ListView):
     model = Review
     context_object_name = 'reviews'
 
-    def get_queryset(self):
-        base_query = super().get_queryset()
-        data = base_query.filter(rating__gt=3)  # rating by greater than 3
-        return data
+    # def get_queryset(self):
+    #     base_query = super().get_queryset()
+    #     data = base_query.filter(rating__gt=3)  # rating by greater than 3
+    #     return data
     
 
 class SingleReviewView(DetailView):
