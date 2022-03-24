@@ -3,21 +3,29 @@ from django.http import HttpResponseRedirect
 # from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 
 from .forms import ReviewForm
 from .models import Review
 
 
 # Create your views here.
-class ReviewView(FormView):
-    form_class = ReviewForm  # GET
-    template_name = 'reviews/review.html'  # GET
+class ReviewView(CreateView):
+    model = Review
+    form_class = ReviewForm  # we could delete this form_class. we using this form_class because we need configure the labels and the error_messages for our form
+    template_name = 'reviews/review.html'
     success_url = '/thank-you'
 
-    def form_valid(self, form):  # POST
-        form.save()
-        return super().form_valid(form)
+
+# class ReviewView(FormView):
+#     form_class = ReviewForm  # GET
+#     template_name = 'reviews/review.html'  # GET
+#     success_url = '/thank-you'
+
+#     def form_valid(self, form):  # POST (we should use this method to save data)
+#         form.save()
+#         return super().form_valid(form)
+
 
 # class ReviewView(View):
 #     def get(self, request):
