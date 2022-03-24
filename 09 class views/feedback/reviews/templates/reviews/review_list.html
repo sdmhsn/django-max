@@ -7,7 +7,7 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <ul>
-        {% for review in reviews %}
+        {% for review in reviews %} <!-- if we don't use context_object_name in views.py, we should change the reviews into object_list -->
             <li>{{ review.user_name }} (Rating: {{ review.rating }})</li>
         {% endfor %}
     </ul>
