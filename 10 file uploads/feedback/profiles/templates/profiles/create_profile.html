@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="{% static 'profiles/styles.css' %}">
 </head>
 <body>
-    <form>
-        <input type="file">
+    <form action="/profiles/" method="POST" enctype="multipart/form-data"><!-- profiles should double slash e.g. '/profiles/' -->
+        {% csrf_token %}
+        <input type="file" name="imageq">
         <button>Upload!</button>
     </form>
 </body>
