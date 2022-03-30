@@ -12,7 +12,7 @@ from .models import Review
 # Create your views here.
 class ReviewView(CreateView):
     model = Review
-    form_class = ReviewForm  # we could delete this form_class. we using this form_class because we need configure the labels and the error_messages for our form
+    form_class = ReviewForm
     template_name = 'reviews/review.html'
     success_url = '/thank-you'
 
@@ -21,6 +21,8 @@ class AddFavoriteView(View):
     def post(self, request):
         review_id = request.POST['review_id']
         fav_review = Review.objects.get(pk=review_id)
+        request.session['favorite_review'] = fav_review
+        return HttpResponseRedirect('/reviews/' + review_id)
 
 
 class ThankYouView(TemplateView):
@@ -37,32 +39,7 @@ class ReviewListView(ListView):
     model = Review
     context_object_name = 'reviews'
 
-    # def get_queryset(self):
-    #     base_query = super().get_queryset()
-    #     data = base_query.filter(rating__gt=3)  # rating by greater than 3
-    #     return data
-    
 
 class SingleReviewView(DetailView):
     template_name = 'reviews/single_review.html'
     model = Review
-    
-
-
-# def index(request):
-#     if request.method == 'POST':
-#         form = ReviewForm(request.POST)
-
-#         if form.is_valid():
-#             form.save() 
-
-#             return HttpResponseRedirect('/thank-you')
-
-#     else:
-#         form = ReviewForm()
-
-#     return render(request, 'reviews/review.html', {'form': form})
-
-
-# def thank_you(request):
-#     return render(request, 'reviews/thank_you.html')
