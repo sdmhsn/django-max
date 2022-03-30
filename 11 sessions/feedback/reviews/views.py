@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-# from django.views import View
+from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView, CreateView
@@ -17,31 +17,10 @@ class ReviewView(CreateView):
     success_url = '/thank-you'
 
 
-# class ReviewView(FormView):
-#     form_class = ReviewForm  # GET
-#     template_name = 'reviews/review.html'  # GET
-#     success_url = '/thank-you'
-
-#     def form_valid(self, form):  # POST (we should use this method to save data)
-#         form.save()
-#         return super().form_valid(form)
-
-
-# class ReviewView(View):
-#     def get(self, request):
-#         form = ReviewForm()
-
-#         return render(request, 'reviews/review.html', {'form': form})
-
-#     def post(self, request):
-#         form = ReviewForm(request.POST)
-
-#         if form.is_valid():
-#             form.save() 
-            
-#             return HttpResponseRedirect('/thank-you')
-
-#         return render(request, 'reviews/review.html', {'form': form})
+class AddFavoriteView(View):
+    def post(self, request):
+        review_id = request.POST['review_id']
+        fav_review = Review.objects.get(pk=review_id)
 
 
 class ThankYouView(TemplateView):

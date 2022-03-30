@@ -8,5 +8,8 @@
     <h1>{{ review.user_name }}</h1> <!-- the review keyword is from the model name that automatically converted into lowercase. besides review, we can also using object as keyword or context_object_name in cbv in views.py -->
     <p>Rating: {{ review.rating }}</p>
     <p>{{ review.review_text }}</p>
-    <button>Favorite</button>
+    <form action="/reviews/favorite" method="POST">
+        <input type="hidden" name="review_id" value="{{ review.id }}">
+        <button>Favorite</button>
+    </form>
 {% endblock content %}
