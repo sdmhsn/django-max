@@ -1,6 +1,7 @@
 # from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.views.generic import ListView, DetailView
+from .forms import CommentForm
 
 
 # Create your views here.
@@ -44,6 +45,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['post_tags'] = self.object.tags.all()
+        context['comment_form'] = CommentForm()
         return context
 
 # def post_detail(request, slug):
@@ -51,7 +53,7 @@ class PostDetailView(DetailView):
 #     # identified_post = Post.objects.get(slug=slug)
 #     return render(request, 'blog/post-detail.html', 
 #         {
-#             'post': identified_post,
+#             'post': identified_post,  # we don't need to use this code in cbv
 #             'post_tags': identified_post.tags.all()
 #         }
 #     )
