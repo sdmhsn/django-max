@@ -5,8 +5,12 @@
     My Stored Posts
 {% endblock page_title %}
 
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/stored-posts.css' %}">
+{% endblock css_files %}
+
 {% block content %}
-    <section>
+    <section id="stored-posts">
         {% if not has_posts %}
             <p>You didn't save any posts for later.</p>
         {% endif %}
