@@ -11,5 +11,34 @@
 <body>
     <h1>All Meetups!</h1>
     <p>Hello World</p>
+
+    <!-- <h2>{{ meetups.0.title }}</h2> -->
+
+    <!-- 
+        <ul>
+        {% for meetup_item in meetups %}
+            <li>{{ meetup_item.title }}</li>
+        {% endfor %}
+        </ul>
+    -->
+
+    <!-- 
+        {% if show_meetups %}
+            <h3>{{ meetups.0.title }}</h3>
+        {% else %}
+            <p>No meetups found</p>
+        {% endif %} 
+    -->
+    
+    <!-- combined -->
+    <ul>
+        {% for meetup_item in meetups %}
+            {% if show_meetups %}
+                <li>{{ meetup_item.title }}</li>
+            {% else %}
+                <p>No meetups found</p>
+            {% endif %}
+        {% endfor %}
+    </ul>
 </body>
 </html>
