@@ -1,0 +1,16 @@
+<li class="meetup-item">
+    <article>
+        <div class="meetup-summary">
+            <div class="meetup-image">
+                <img src="" alt="">
+            </div>
+            <div class="meetup-details">
+                <h3>{{ title }}</h3><!-- include 'meetups/includes/meetup-item.html' with title=meetup_item.title location=meetup_item.location -->
+                <address>{{ location }}</address><!-- include 'meetups/includes/meetup-item.html' with title=meetup_item.title location=meetup_item.location -->
+            </div>
+        </div>
+        <div class="meetup-actions">
+            <a href="{% url 'meetup-detail' meetup_item.slug %}" class="btn">More Details</a>
+        </div>
+    </article>
+</li>
