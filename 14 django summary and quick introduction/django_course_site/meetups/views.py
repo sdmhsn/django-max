@@ -14,8 +14,29 @@ def index(request):
 
 def meetup_details(request, meetup_slug):
     try:
+        # my request code:
+        # selected_meetup = Meetup.objects.get(slug=meetup_slug)
+        # registration_form = RegistrationForm()
+        # if request.method == 'GET':
+        #     registration_form
+        # else:
+        #     registration_form = RegistrationForm(request.POST)
+        #     if registration_form.is_valid():
+        #         registration_form.save()
+        # return render(request, 'meetups/meetup-detail.html', {
+        #     'meetup_found': True,
+        #     'meetup': selected_meetup,
+        #     'form': registration_form
+        # })
+
         selected_meetup = Meetup.objects.get(slug=meetup_slug)
-        registration_form = RegistrationForm()
+        if request.method == 'GET':
+            registration_form = RegistrationForm()
+        else:
+            registration_form = RegistrationForm(request.POST)
+            if registration_form.is_valid():
+                participant = registration_form.save()
+                selected_meetup.participants.add(participant)
         return render(request, 'meetups/meetup-detail.html', {
             'meetup_found': True,
             'meetup': selected_meetup,
